@@ -5,8 +5,9 @@
     This segmentation model is an UNET architecture with ResNet34 as encoder background. 
   </p>
 </div>
+
 <!-- Architecture Diagram -->
-## :star2: Architecture Diagram
+### :star2: Architecture Diagram
 
 <!-- Screenshots -->
 ### :camera: *Diagram will be uploaded later
@@ -56,7 +57,7 @@ To run tests, run the following command
 <!-- ``` -->
 
 <!-- Run Locally -->
-### :running: Run Locally
+### :running: Run
 
 Clone the project
 
@@ -151,20 +152,18 @@ Distributed under the no License. See LICENSE.txt for more information. -->
 
 
 <!-- Contact -->
-## :handshake: Contact
+### :handshake: Contact
 
 LinkedIn Profile: [GohVh](https://www.linkedin.com/in/gohvh95/)
 Email: gohvh95@gmail.com
 
 <!-- Acknowledgments -->
-## :gem: Acknowledgements
+### :gem: Acknowledgements
 
 The dataset used in this project is a Semantic Drone Dataset focuses on semantic understanding of urban scenes for increasing the safety of autonomous drone flight and landing procedures. This dataset is prepared by a team of members from Institute of Computer Graphics and Vision, Graz University of Technology.
  - [Aerial Segmentation Dataset](https://www.tugraz.at/index.php?id=22387)
 
  Below are the journal papers of two architectures used in this project:
- - [ResNet34 paper](https://arxiv.org/abs/1512.03385)
- - [Official implementation of Resnet](https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py)
- - [Unet](https://arxiv.org/abs/1505.04597)
- - [Official implementation of Unet](https://github.com/milesial/Pytorch-UNet)
+ - [ResNet34 paper](https://arxiv.org/abs/1512.03385), [Official implementation of Resnet](https://github.com/pytorch/vision/blob/main/torchvision/models/resnet.py)
+ - [Unet paper](https://arxiv.org/abs/1505.04597), [Official implementation of Unet](https://github.com/milesial/Pytorch-UNet)
 
