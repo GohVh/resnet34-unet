@@ -117,7 +117,7 @@ def fit(device, epochs, model, train_loader, val_loader, criterion, optimizer, s
                   "Time: {:.2f}m".format((time.time()-since)/60))
         
     history = {'train_loss' : train_losses, 'val_loss': test_losses,
-               'train_score' :train_iou, 'val_miou':val_iou,
+               'train_score' :train_iou, 'val_score':val_iou,
                'train_acc' :train_acc, 'val_acc':val_acc,
                'lrs': lrs}
     print('Total time: {:.2f} m' .format((time.time()- fit_time)/60))
