@@ -4,7 +4,7 @@
   <p>
     This segmentation model is an UNET architecture with ResNet34 as encoder background. 
   </p>
-
+</div>
 <!-- Architecture Diagram -->
 ## :star2: Architecture Diagram
 
