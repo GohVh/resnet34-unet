@@ -154,8 +154,8 @@ Distributed under the no License. See LICENSE.txt for more information. -->
 <!-- Contact -->
 ### :handshake: Contact
 
-LinkedIn Profile: [GohVh](https://www.linkedin.com/in/gohvh95/)
-Email: gohvh95@gmail.com
+- LinkedIn Profile: [GohVh](https://www.linkedin.com/in/gohvh95/)
+- Email: gohvh95@gmail.com
 
 <!-- Acknowledgments -->
 ### :gem: Acknowledgements
