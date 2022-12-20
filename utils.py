@@ -61,5 +61,3 @@ def visualize(image, mask, pred_mask, score):
     ax3.imshow(pred_mask)
     ax3.set_title('UnetResnet34 | mIoU {:.3f}'.format(score))
     ax3.set_axis_off()
-
-
