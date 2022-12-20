@@ -1,0 +1,11 @@
+DATASET:
+  IMAGE_PATH: './data/original_images/'
+  MASK_PATH: './data/label_images_semantic/'
+  MODEL_PATH: './gdrive/MyDrive/segmentation/model/'
+
+MODEL:
+  NUM_CLASSES: 24
+
+PREPROCESS:
+  MEAN: [0.485, 0.456, 0.406]
+  STD: [0.229, 0.224, 0.225]
