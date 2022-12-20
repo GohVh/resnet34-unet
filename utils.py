@@ -5,6 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from test import *
 
+def dummyfucntion():
+    return True
+
 def plot(history, graphType):
         plt.plot(history[f'train_{graphType}'], label='train', marker= '*')
         plt.plot(history[f'val_{graphType}'], label='val', marker = 'o')
