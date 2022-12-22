@@ -31,4 +31,6 @@ def test_score_acc(model, test_set):
         pred_mask, score, acc = predict_image_mask_scoreacc(model, img, mask)
         score_iou.append(score)
         accuracy.append(acc)
-    return score_iou, accuracy
+    
+    history = {'test_score' : score_iou, 'test_acc': accuracy}
+    return history

@@ -3,8 +3,16 @@ DATASET:
   MASK_PATH: './data/label_images_semantic/'
   MODEL_PATH: './gdrive/MyDrive/segmentation/model/'
 
-MODEL:
+INIT_TRAIN: True
+
+PARAM:
   NUM_CLASSES: 24
+  BATCH_SIZE: 3
+  INITIAL_LR: 1e-3
+  EPOCH: 15
+  STOP_EPOCH: 5
+  WEIGHT_DECAY: 1e-4
+
 
 PREPROCESS:
   MEAN: [0.485, 0.456, 0.406]

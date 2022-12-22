@@ -4,15 +4,19 @@ import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
 from test import *
+import shutil
 
-def plot(history, graphType):
+def plot(history, graphType, isTest: False):
+    if not isTest:
         plt.plot(history[f'train_{graphType}'], label='train', marker= '*')
         plt.plot(history[f'val_{graphType}'], label='val', marker = 'o')
-        plt.title(f'{graphType} per epoch')
-        plt.ylabel(f'{graphType}')
-        plt.xlabel('epoch')
-        plt.legend(), plt.grid()
-        plt.show()
+    else:
+        plt.plot(history[f'test_{graphType}'], label='test', marker= '*')
+    plt.title(f'{graphType} per epoch')
+    plt.ylabel(f'{graphType}')
+    plt.xlabel('epoch')
+    plt.legend(), plt.grid()
+    plt.show()
 
 
 def pixel_accuracy(output, mask):
@@ -61,3 +65,33 @@ def visualize(image, mask, pred_mask, score):
     ax3.imshow(pred_mask)
     ax3.set_title('UnetResnet34 | mIoU {:.3f}'.format(score))
     ax3.set_axis_off()
+
+def save_checkpoint(state, current_checkpoint_path, is_best=False, best_model_path=None):
+    torch.save(state, current_checkpoint_path)
+    if is_best:
+        assert best_model_path!=None, 'best_model_path should not be None.'
+        shutil.copyfile(current_checkpoint_path, best_model_path)
+
+def load_checkpoint(best_model_path, current_checkpoint_path, model, optimizer, scheduler, best_checkpoint=False):
+    
+    train_loss_key = 'train_loss'
+    val_loss_key = 'val_loss'
+    path = current_checkpoint_path    
+    if best_checkpoint:
+        path = best_model_path
+        
+    model, optimizer, scheduler, epoch, train_loss, val_loss = load_model(path, model, optimizer, scheduler, train_loss_key, val_loss_key)    
+    print(f'optimizer = {optimizer}, start epoch = {epoch}, train loss = {train_loss}, val loss = {val_loss}')
+    return model, optimizer, scheduler, val_loss
+
+def load_model(model_path, model, optimizer, scheduler, train_loss_key, val_loss_key):
+    
+    checkpoint = torch.load(model_path)
+    model.load_state_dict(checkpoint['state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer'])
+    scheduler.load_state_dict(checkpoint['scheduler'])
+    epoch = checkpoint['epoch']
+    train_loss = checkpoint[train_loss_key]
+    val_loss = checkpoint[val_loss_key]
+    
+    return model, optimizer, scheduler, epoch, train_loss, val_loss
