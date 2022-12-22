@@ -1,18 +1,9 @@
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset
 import cv2
 from PIL import Image
-import pandas as pd
-
 import torch
-import torch.nn as nn
 from torchvision import transforms as T
-import torchvision
-
-from torch.autograd import Variable
 import albumentations as A
-import os
-
-from torchsummary import summary
 
 class DroneDataset(Dataset):
     
