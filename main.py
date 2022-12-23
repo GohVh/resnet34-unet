@@ -18,7 +18,7 @@ from PIL import Image
 parser = argparse.ArgumentParser()
 config = load_train_config('./config.yaml')
 parser.add_argument('--CONTINUE_TRAIN', default=True, action='store_false', help='boolean, True False')
-parser.add_argument('--EPOCH', type=int, default=10)
+parser.add_argument('--EPOCH', type=int, default=30)
 args = parser.parse_args()
 
 wandb.init(project='resnet34-unet', config=config)
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     init_lr = PARAM['INITIAL_LR']
     # criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=init_lr, weight_decay=PARAM['WEIGHT_DECAY'])
-    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, init_lr, epochs=PARAM['EPOCH'], steps_per_epoch=len(train_loader))
+    scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, init_lr, epochs=args.EPOCH, steps_per_epoch=len(train_loader))
     epoch = args.EPOCH
     stop_epoch = PARAM["STOP_EPOCH"]
     init_train = args.CONTINUE_TRAIN
