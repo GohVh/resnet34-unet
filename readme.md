@@ -74,18 +74,18 @@ Open your Jupyter notebook/Google Colab notebook
 <!-- Deployment -->
 ### :triangular_flag_on_post: Results
 Loss
-<img src="https://github.com/GohVh/resnet34-unet/blob/main/images/loss_per_epoch.png" alt="screenshot" />
+<p><img src="https://github.com/GohVh/resnet34-unet/blob/main/images/loss_per_epoch.png" alt="screenshot" /></p>
 
 Score
-<img src="https://github.com/GohVh/resnet34-unet/blob/main/images/score_per_epoch.png" alt="screenshot" />
+<p><img src="https://github.com/GohVh/resnet34-unet/blob/main/images/score_per_epoch.png" alt="screenshot" /></p>
 
 Accuracy
-<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/acc_per_epoch.png alt="screenshot">
+<p><img src=https://github.com/GohVh/resnet34-unet/blob/main/images/acc_per_epoch.png alt="screenshot"></p>
 
 Predicted results
-<img src=hhttps://github.com/GohVh/resnet34-unet/blob/main/images/result1.png alt="screenshot">
-<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result2.png alt="screenshot">
-<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result3.png alt="screenshot">
+<p><img src=hhttps://github.com/GohVh/resnet34-unet/blob/main/images/result1.png alt="screenshot" /></p>
+<p><img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result2.png alt="screenshot" /></p>
+<p><img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result3.png alt="screenshot" /></p>
 
 <!-- Install dependencies
 
