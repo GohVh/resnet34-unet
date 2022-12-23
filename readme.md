@@ -68,7 +68,10 @@ Clone the project
 Open your Jupyter notebook/Google Colab notebook
 
 ```bash
-  %run main.py --config_path ./config.yaml
+  %run main.py
+```
+```bash
+  %run predict.py
 ```
 
 <!-- Deployment -->
