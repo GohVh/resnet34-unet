@@ -3,10 +3,18 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import matplotlib.pyplot as plt
-from test import *
 import shutil
+import os
+import pandas as pd
 
-def plot(history, graphType, isTest: False):
+def create_df(path):
+        name = []
+        for dirname, _, filenames in os.walk(path):
+            for filename in filenames:
+                name.append(filename.split('.')[0])        
+        return pd.DataFrame({'id': name}, index = np.arange(0, len(name)))
+
+def plot(history, graphType, isTest=False):
     if not isTest:
         plt.plot(history[f'train_{graphType}'], label='train', marker= '*')
         plt.plot(history[f'val_{graphType}'], label='val', marker = 'o')
@@ -48,7 +56,7 @@ def mIoU(pred_mask, mask, n_classes=24, smooth=1e-10):
                 iou_per_class.append(iou)
         return np.nanmean(iou_per_class)
 
-def load_train_config(path="config.yaml"):
+def load_train_config(path):
     with open(path) as f:
         data = yaml.load(f, Loader=yaml.Loader)
     return data
@@ -76,7 +84,8 @@ def load_checkpoint(best_model_path, current_checkpoint_path, model, optimizer, 
     
     train_loss_key = 'train_loss'
     val_loss_key = 'val_loss'
-    path = current_checkpoint_path    
+    path = current_checkpoint_path
+
     if best_checkpoint:
         path = best_model_path
         
@@ -95,3 +104,7 @@ def load_model(model_path, model, optimizer, scheduler, train_loss_key, val_loss
     val_loss = checkpoint[val_loss_key]
     
     return model, optimizer, scheduler, epoch, train_loss, val_loss
+
+def get_lr(optimizer):
+    for param_group in optimizer.param_groups:
+        return param_group['lr']

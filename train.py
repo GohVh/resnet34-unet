@@ -5,8 +5,8 @@ import wandb
 import torch.nn as nn
 
 def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader, val_loader, optimizer, scheduler, patch=False):
-    torch.cuda.empty_cache()
-    criterion = nn.CrossEntropyLoss()
+
+    criterion = nn.CrossEntropyLoss().to(device)
     wandb.watch(model, criterion, log='all', log_freq=10)
 
     train_losses, val_losses = [], []
@@ -14,7 +14,7 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
     loss_notdecrease_count = 0
     prev_e_loss = min_val_loss
 
-    model.to(device)
+    # model.to(device)
     fit_time = time.time()
 
     for e in range(epoch):
@@ -27,6 +27,7 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
         model.train()
 
         for i, data in enumerate(tqdm(train_loader)):
+            
             #training phase
             image_tiles, mask_tiles = data
             if patch:
@@ -35,8 +36,7 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
                 image_tiles = image_tiles.view(-1,c, h, w)
                 mask_tiles = mask_tiles.view(-1, h, w)
             
-            image = image_tiles.to(device)
-            mask = mask_tiles.to(device)
+            image, mask = image_tiles.to(device), mask_tiles.to(device)
             #forward
             output = model(image)
             loss = criterion(output, mask)
@@ -46,12 +46,13 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
             #backward
             loss.backward()
             optimizer.step() #update weight          
-            optimizer.zero_grad() #reset gradient
-            
+            optimizer.zero_grad()#reset gradient
+
             #step the learning rate
             scheduler.step() 
             
             t_loss_perb += loss.item()
+            torch.cuda.empty_cache()
             
         with torch.no_grad():
 
@@ -69,8 +70,7 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
                     image_tiles = image_tiles.view(-1,c, h, w)
                     mask_tiles = mask_tiles.view(-1, h, w)
                 
-                image = image_tiles.to(device)
-                mask = mask_tiles.to(device)
+                image, mask = image_tiles.to(device), mask_tiles.to(device)
                 output = model(image)
                 #evaluation metrics
                 v_iou_perb +=  mIoU(output, mask)
@@ -78,6 +78,7 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
                 #loss
                 loss = criterion(output, mask)                                  
                 v_loss_perb += loss.item()
+                torch.cuda.empty_cache()
             
         #calculation mean for each batch
         t_loss_pere = t_loss_perb/len(train_loader)
@@ -87,14 +88,15 @@ def fit(device, epoch, stop_epoch, min_val_loss, model, model_path, train_loader
             
         checkpoint = {
 			'epoch': e + 1,
-			'train loss': t_loss_pere,
-			'val loss': v_loss_pere,
+			'train_loss': t_loss_pere,
+			'val_loss': v_loss_pere,
 			'state_dict': model.state_dict(),
 			'optimizer': optimizer.state_dict(),
             'scheduler': scheduler.state_dict()
 			}
 
         save_checkpoint(checkpoint, f'{model_path}/checkpoint.pth')
+        print('save model...')
 
         if min_val_loss > v_loss_pere:
             print('Loss Decreasing.. {:.3f} >> {:.3f} '.format(min_val_loss, v_loss_pere))

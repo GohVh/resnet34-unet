@@ -1,8 +1,8 @@
 import yaml
 import torch
-from utils import *
 from torchvision import transforms as T
 from tqdm.notebook import tqdm
+from utils import *
   
 def predict_image_mask_scoreacc(device, model, image, mask, mean, std):
     model.eval()
@@ -24,13 +24,12 @@ def predict_image_mask_scoreacc(device, model, image, mask, mean, std):
 
     return masked, score, acc
 
-def test_score_acc(model, test_set):
-    score_iou, accuracy = [], []
+def test_score_acc(model, device, test_set, mean, std):
+    score_iou, accuracy = 0, 0
     for i in tqdm(range(len(test_set))):
         img, mask = test_set[i]
-        pred_mask, score, acc = predict_image_mask_scoreacc(model, img, mask)
-        score_iou.append(score)
-        accuracy.append(acc)
+        pred_mask, score, acc = predict_image_mask_scoreacc(device, model, img, mask, mean, std)
+        score_iou+=score
+        accuracy+=acc
     
-    history = {'test_score' : score_iou, 'test_acc': accuracy}
-    return history
+    return score_iou/len(test_set), accuracy/len(test_set)
