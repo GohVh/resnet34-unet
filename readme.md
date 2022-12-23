@@ -71,6 +71,22 @@ Open your Jupyter notebook/Google Colab notebook
   %run main.py --config_path ./config.yaml
 ```
 
+<!-- Deployment -->
+### :triangular_flag_on_post: Results
+Loss
+<img src="https://github.com/GohVh/resnet34-unet/blob/main/images/loss_per_epoch.png" alt="screenshot" />
+
+Score
+<img src="https://github.com/GohVh/resnet34-unet/blob/main/images/score_per_epoch.png" alt="screenshot" />
+
+Accuracy
+<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/acc_per_epoch.png alt="screenshot">
+
+Predicted results
+<img src=hhttps://github.com/GohVh/resnet34-unet/blob/main/images/result1.png alt="screenshot">
+<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result2.png alt="screenshot">
+<img src=https://github.com/GohVh/resnet34-unet/blob/main/images/result3.png alt="screenshot">
+
 <!-- Install dependencies
 
 ```bash
