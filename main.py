@@ -68,24 +68,3 @@ if __name__ == "__main__":
     bestmodel, optimizer, scheduler, min_val_loss = load_checkpoint(f'{DATASET["MODEL_PATH"]}/best.pth', f'{DATASET["MODEL_PATH"]}/checkpoint.pth', model, optimizer, scheduler, best_checkpoint=True)
     test_score, test_iou = test_score_acc(bestmodel, device, test_set, mean=PREPROCESS["MEAN"], std=PREPROCESS["STD"])
     print(f'Test score: {test_score}, Test IOU: {test_iou}')
-
-    rand_selected_img = random.sample(range(len(test_set)), 5)
-    test_score=[]
-    rand_selected_img.sort()
-    print(f'random selected image num: {rand_selected_img}')
-    
-    for i in rand_selected_img:
-        image, mask = test_set[i]
-        masked, score, acc = predict_image_mask_scoreacc(device, model, image, mask, mean=PREPROCESS["MEAN"], std=PREPROCESS["STD"])
-        image.save(f"{DATASET['PREDICT_PATH']}image_{i}.png")
-        torch.save(mask,f"{DATASET['PREDICT_PATH']}gt_mask_{i}.pt")
-        torch.save(masked,f"{DATASET['PREDICT_PATH']}pred_mask_{i}.pt")
-        test_score.append(score)
-
-    for i, num in enumerate(rand_selected_img):
-        visualize(
-            image=Image.open(f'{DATASET["PREDICT_PATH"]}image_{num}.png'),
-            mask=torch.load(f'{DATASET["PREDICT_PATH"]}gt_mask_{num}.pt'),
-            pred_mask=torch.load(f'{DATASET["PREDICT_PATH"]}pred_mask_{num}.pt'),
-            score=test_score[i])
-        torch.cuda.empty_cache()
